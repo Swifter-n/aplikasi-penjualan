@@ -39,7 +39,7 @@ export default function Private() {
         if (window.confirm('Are you sure to logout?'))
             auth.signOut();
     }
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
         setOpen(true);
     };
