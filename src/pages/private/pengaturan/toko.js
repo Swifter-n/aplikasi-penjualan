@@ -31,11 +31,6 @@ function Toko() {
     });
     const [isSubmitting, setSubmitting] = useState(false);
 
-    useEffect(() => {
-        if (snapshot) {
-            setFrom(snapshot.data());
-        }
-    }, [snapshot]);
 
     const handleChange = e => {
         setFrom({
@@ -46,6 +41,11 @@ function Toko() {
         });
         setSomethingChange(true);
     }
+    useEffect(() => {
+        if (snapshot && snapshot.exists) {
+            setFrom(snapshot.data());
+        }
+    }, [snapshot]);
 
 
     const validate = () => {
@@ -81,7 +81,6 @@ function Toko() {
                 enqueueSnackbar(`Data saved successfuly`, { variant: 'success' });
 
             } catch (e) {
-                console.log(e.message);
                 enqueueSnackbar(e.message, { variant: 'error' });
             }
             setSubmitting(false);
@@ -92,11 +91,6 @@ function Toko() {
         return <AppPageLoading />
     }
 
-
-
-
-
-
     return <div className={classes.pengaturanToko}>
         <form onSubmit={handleSubmit} noValidate>
             <TextField
@@ -106,9 +100,9 @@ function Toko() {
                 margin="normal"
                 required
                 fullWidth
+                disabled={isSubmitting}
                 value={form.nama}
                 onChange={handleChange}
-                disabled={isSubmitting}
                 helperText={error.nama}
                 error={error.nama ? true : false}
             />
